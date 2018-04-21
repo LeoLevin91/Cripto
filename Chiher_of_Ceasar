@@ -1,0 +1,127 @@
+# Первый(верхний массив)
+arr1 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',\
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+# Скопированный массив(нижний массив)
+arr2 = []
+for i in range(len(arr1)): # С i по размер(длинну) первого массива
+    arr2.append(arr1[i]) # Добовляем к пустому массиву элемент от первого стоящего в нужном поорядке
+
+def change_arr2():
+    """Функция берет на вход ключ(number), добовляет в конец массива нулевой элемент
+        этого же массива, и удаляет этот первый элемент. Нулевым эллементом [0]
+        становится следующий за [0](удаленным элементом) элемент"""
+
+    for i in range(number): # !!!!!!!!!!!!!!!!!!!!!!Remove on "number"
+        arr2.append(arr2[0])
+        arr2.remove(arr2[0])
+
+
+def change_arr3():
+    """Тот же принцып что и у change_arr2, но в обратном порядке
+    """
+    for i in range(number):
+        arr2.insert(0, arr2[len(arr2) - 1])
+        arr2.remove(arr2[len(arr2) - 1])
+
+
+while 1:
+    cont = input("Продолжить? [y/n] > ")
+    if cont == 'y':
+        # Пердложение на выбор пользователю
+        print("1) Зашифровать текст/файл")
+        print("2) Расшифровать текст в файл")
+        print("3) Расшифровать текст и вывести на экран")
+
+        try:
+            cho = int(input("[*] Введите число:\n [число] > "))  # Вводим нужное число
+
+            if cho == 1:
+                number = int(input("[*]Введите ключ для шифрования [0-%s]: " % str(len(arr1))))
+
+                change_arr2()  # вызываем функцию по сдвигу массива
+
+                msg = input("\n[*]Введите тест для зашифровки:\n[текст] > ")  # сообщение которое мы хотим зашифровать
+
+                msgc = ""  # Наше будущее зашифрованое сообщение (пока пустое)
+
+                # цикл для зашифровки
+                for i in msg:
+                    for j in range(len(arr1)):
+                        if i == arr1[j]:
+                            msgc += arr2[j]
+                    if i.isspace():  # Пробел или перевод строки? Если да добовляем этот символ
+                        msgc += i
+                    elif i.isdigit():  # Цифра ли? Если да печатаем эту цифру
+                        msgc += i
+                    elif i.isalpha() == False and i.isdigit() == False:
+                        msgc += i
+                cript = open("text_cript.txt", 'w')  # Записываем результат в файл
+                print("\nЗашифрованный текст: " + msgc + "\n")  # Одновременно выводим результат на экран
+                cript.write(msgc)  # Записываем итог в файл
+                cript.close()  # Закрываем файл
+
+            elif cho == 2:
+                number = int(input("[*]Введите ключ для шифрования [0-%s]: " % str(
+                    len(arr1))))  # Повторяем первый вариант (нам известен ключ)
+
+                change_arr3()
+
+                decript_r = open("text_cript.txt",
+                                 "r")  # Открываем файл с зашифрованым текстом и читаем его в dicript_r
+                read = decript_r.read()
+                msgd = ""  # Переменная дикриптера пуста
+
+                # Цикл для расшифровки
+                for i in read:
+                    for j in range(len(arr1)):
+                        if i == arr2[j]:
+                            msgd += arr1[j]
+                    if i.isspace():  # Пробел или перевод строки? Если да добовляем этот символ
+                        msgd += i
+                    elif i.isdigit():  # Цифра ли? Если да печатаем эту цифру
+                        msgd += i
+                    elif i.isalpha() == False and i.isdigit() == False:
+                        msgd += i
+                print("[*] Расшифрованый текст:")
+                print("\n[текст] > " + str(msgd))
+                ansver = input("[*] Сохранить дешифрованый текст в файл?\n[y/n] > ")
+                if ansver == 'y' or ansver == 'Y':
+                    decript_w = open("text_dicript.txt", "w")
+                    decript_w.write(msgd)
+                    decript_w.close()
+                    print("\n[+] Файл с расшифровкой успешно сохранен! ")
+                else:
+                    pass
+                decript_r.close()
+
+            elif cho == 3:
+                number = int(input("[*]Введите ключ для шифрования [0-%s]: " % str(len(arr1))))
+
+                change_arr3()
+
+                msd = input("[*] Введите зашифрованый текст:\n [текст] > ")
+                msgd = ""
+                for i in msd:
+                    for j in range(len(arr1)):
+                        if i == arr2[j]:
+                            msgd += arr1[j]
+                            continue
+                    if i.isspace():  # Пробел или перевод строки? Если да добовляем этот символ
+                        msgd += i
+                    elif i.isdigit():  # Цифра ли? Если да печатаем эту цифру
+                        msgd += i
+                    elif i.isalpha() == False and i.isdigit() == False:
+                        msgd += i
+                print("\n[*] Дешифрованый текст:")
+                print("[текст] << " + str(msgd))
+            else:
+                print("Не верный запрос! Повторите ввод!")
+        except ValueError:
+            print("Неверное значение! Убедитесь, что введеное значение является целым числом!")
+    elif cont == 'n':
+        print("До встречи!")
+        exit()
+    else:
+        print("Ошибка, введите допустимый символ! [y/n] ")
+        continue
