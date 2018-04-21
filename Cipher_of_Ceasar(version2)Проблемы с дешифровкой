@@ -1,0 +1,127 @@
+#Проблема с данной программой в том, что если слово шифруется с символами (не буквами и не цифрами) (пример: Alex It`s Cool!), то
+при расшифровке буква x которая в конце слова Alex теряется так как это не буква. Или же слова могут расшифроваться с символами (как нужно)
+но в конце слова Alex будет стоять символ который был у зашифрованного слова (Doh{ Lw`v Frro!) ({). Проблема в ASCII таблице.
+"""Input = input("\nВведите текст: \n[текст] > ")
+for i in range(len(Input)):
+    letter = Input[i]
+    if letter.isupper():
+        i = ord(letter)
+        i += k
+        msgc += chr(i)
+    elif letter.islower():
+        i = ord(letter)
+        i += k
+        msgc += chr(i)
+    elif letter.isspace():
+        msgc += " "
+    elif letter.isalpha() == False and letter.isdigit() == False:
+        msgc += letter
+print(msgc)"""
+
+
+
+
+
+#____________________________________________________________________________________________________________________
+# Оъявляем глобальную переменную
+msgc=""
+
+def main(k):
+    """Данная функция работает на кодах символов
+        вводится текст и на каждый элемент (letter) x переводится в число в кодировке для данного элемента
+        далее к нему прибавляется k (ключ), а затем результат записывается в переменную (глобальную) для шифрования
+        а x в свою очередь переведен в сам символ (но уже измененный)"""
+    global msgc
+    if k < 0 or k > 231:
+        print("Ошибка! Недопустимые символы!")
+        exit()
+    #Переменная для текста который нужно зашифровать
+    Input = input("\nВведите текст: \n[текст] > ")
+    for i in range(len(Input)):
+        letter = Input[i]
+        if letter.isupper():
+            i = ord(letter)
+            i += k
+            msgc += chr(i)
+        elif letter.islower():
+            i = ord(letter)
+            i += k
+            msgc += chr(i)
+        elif letter.isspace():
+            msgc += " "
+        elif letter.isalpha() == False and letter.isdigit() == False:
+            msgc += letter
+    cript = open("text_cript.txt", "w")
+    print("\nЗашифрованый текст: "+msgc+"\n")
+    cript.write(msgc)
+    cript.close()
+
+# Глобальная переменная для дешифровки
+msgd=""
+
+def decl(k):
+    global msgd
+    if k <= 65 or k > 90:
+        print("Ошибка! Недопустимые символы!")
+        exit()
+    # Открываем файл для записи и записываем его содержимое в переменную read
+    decription = open("text_cript.txt", "r")
+    read = decription.read()
+    for i in range(len(read)):
+        letter = read[i]
+        if letter.isupper():
+            i=ord(letter)
+            i-=k
+            msgd+=chr(i)
+        elif letter.islower():
+            i=ord(letter)
+            i-=k
+            msgd+=chr(i)
+        print("\nРасшифрованный текст:\n")
+        print("[текст] > " +str(msgd))
+        answer = input("\n [*] Сохранить расшифрованый текст в файл? [y/n] > ")
+        if answer == 'y' or answer == 'Y':
+            decript_w = open("decription_w", "w")
+            decript_w.write(msgd)
+            decript_w.close()
+            print("\n[+] Расшифрованый текст успешно сохранен! ")
+        else:
+            pass
+        decript_w.close()
+
+def decl2(k):
+    global msgd
+    if k < 0 or k > 231:
+        print("Ошибка! Недопустимые символы!")
+        exit()
+    Input = input("\n[*] Введите текст:\n [text] > ")
+    for i in range(len(Input)):
+        letter = Input[i]
+        if letter.isupper():
+            i=ord(letter)
+            i-=k
+            msgd+=chr(i)
+        elif letter.islower():
+            i=ord(letter)
+            i-=k
+            msgd+=chr(i)
+    print("\n[*] Расшифрованый текст:")
+    print("\n [текст] << "+str(msgd))
+
+print("1) Зашифровать текст")
+print("2) Расшифровать текст из файла")
+print("3) Расшифровать введеный текст")
+
+ans1 = int(input("Введите номер действия которое хотите осуществить:\n[число] > "))
+k = int(input("Введите ключ (число 0-52):\n[число] > "))
+
+if ans1 == 1:
+    main(k)
+elif ans1 == 2:
+    decl(k)
+elif ans1 == 3:
+    decl2(k)
+else:
+    print("Введен некоректный символ! Повторите ввод!")
+
+
