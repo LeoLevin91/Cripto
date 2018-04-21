@@ -1,0 +1,193 @@
+import random
+
+# 21 очко
+def a_point():
+      # appGamer=random.randint(6.14)
+      # Колличество наших побед и побед компьютера
+      GAMER_POINT = 0
+      COMP_POINT = 0
+      # Наше колличество очков
+      sum = 0
+      while 1:
+            y = input("Желаете продолжить?[y/n]")
+            if y == 'y':
+                  appComp = random.randint(14, 23)
+                  while 1:
+                        x = input("Еще карту? [y/n] > ")
+                        if x == 'y':
+                              appGamer = random.choice([2, 3, 4, 6, 7, 8, 9, 11])
+                              print("Вам выпала карта: " + str(appGamer))
+                              sum += appGamer
+                              print("Сумма ваших очков: " + str(sum))
+                              if sum > 21:
+                                    break
+                              continue
+                        elif x == 'n':
+                              break
+                        else:
+                              print("Invalid simbol! Repeat enter!")
+                              continue
+                  print("_________________________________________")
+                  if appComp > sum and appComp <= 21 or sum > 21 and appComp <= 21:
+                        print("Очки компьютера: " + str(appComp))
+                        print("Ваши очки: " + str(sum))
+                        print("Вы проиграли")
+                        COMP_POINT += 1
+                        print("Число Ваших побед: " + str(GAMER_POINT))
+                        print("Число побед компьютера: " + str(COMP_POINT))
+                  elif sum > appGamer and sum <= 21 and sum != appComp:
+                        print("Очки компьютера: " + str(appComp))
+                        print("Ваши очки: " + str(sum))
+                        print("Вы выйграли")
+                        GAMER_POINT += 1
+                        print("Число Ваших побед: " + str(GAMER_POINT))
+                        print("Число побед компьютера: " + str(COMP_POINT))
+                  elif sum == appComp or sum > 21 and appComp > 21:
+                        print("Очки компьютера: " + str(appComp))
+                        print("Ваши очки: " + str(sum))
+                        print("Ничья!")
+                        print("Число Ваших побед: " + str(GAMER_POINT))
+                        print("Число побед компьютера: " + str(COMP_POINT))
+                  print("______________________________________________")
+                  # обнуляем сумму
+                  sum = 0
+            elif y == 'n':
+                  print("Колличество побед за игровую сессию: ")
+                  print("Число Ваших побед: " + str(GAMER_POINT))
+                  print("Число побед компьютера: " + str(COMP_POINT))
+                  print("До свидания!")
+                  main()
+            else:
+                  print("Неизвестный символ! Повторите ввод!")
+                  continue
+
+# Камень\ножницы\бумага
+def a_stone():
+      GAMER_POINT = 0
+      COMP_POINT = 0
+
+      print("Желаете продолжить?(y/n)> ")
+      while 1:
+            count = str(input())
+            if count == 'y':
+                  print("Камень/Ножницы/Бумага")
+
+                  # Создадим опонента, от одного до трех (разброс)
+                  app = random.randint(1, 3)
+                  if app == 1:
+                        qq = "Камень"
+                  elif app == 2:
+                        qq = "Ножницы"
+                  elif app == 3:
+                        qq = "Бумага"
+                  # Необязатльная часть
+                  else:
+                        qq = "Ошибка"
+
+                  # -------------------------------------------------------------------
+                  print("1) Камень")
+                  print("2) Ножницы")
+                  print("3) Бумага")
+
+                  # Пользовательский ввод
+                  try:
+                        x = int(input("Введите 1, 2, 3\n>"))
+                        if x == 1:
+                              print("______________")
+                              print("Ваш выбор: Камень")
+                              print("Выбор компьютера: " + str(qq))
+                              print("______________")
+                              if (app == 1):
+                                    print("Ничья!")
+                                    print("Число ваших текущих побед: " + str(GAMER_POINT))
+                                    print("Число текущах побед компьютера: " + str(COMP_POINT))
+                              elif (app == 2):
+                                    print("Победа!")
+                                    GAMER_POINT += 1
+                                    print("Число ваших текущих побед: " + str(GAMER_POINT))
+                                    print("Число текущах побед компьютера: " + str(COMP_POINT))
+                              elif (app == 3):
+                                    print("Поражение!")
+                                    GAMER_POINT += 1
+                                    print("Число ваших текущих побед: " + str(GAMER_POINT))
+                                    print("Число текущах побед компьютера: " + str(COMP_POINT))
+                        elif x == 2:
+                              print("--------------")
+                              print("Ваш выбор: Ножницы")
+                              print("Выбор опонента: " + str(qq))
+                              print("______________")
+                              if (app == 1):
+                                    print("Поражение!")
+                                    COMP_POINT += 1
+                                    print("Число ваших текущих побед: " + str(GAMER_POINT))
+                                    print("Число текущах побед компьютера: " + str(COMP_POINT))
+                              elif (app == 2):
+                                    print("Ничья!")
+                                    print("Число ваших текущих побед: " + str(GAMER_POINT))
+                                    print("Число текущах побед компьютера: " + str(COMP_POINT))
+                              elif (app == 3):
+                                    print("Победа!")
+                                    GAMER_POINT += 1
+                                    print("Число ваших текущих побед: " + str(GAMER_POINT))
+                                    print("Число текущах побед компьютера: " + str(COMP_POINT))
+                        else:
+                              print("--------------")
+                              print("Ваш выбор: Бумага")
+                              print("Выбор соперника: " + str(qq))
+                              print("______________")
+                              if (app == 1):
+                                    print("Победа!")
+                                    GAMER_POINT += 1
+                                    print("Число ваших текущих побед: " + str(GAMER_POINT))
+                                    print("Число текущах побед компьютера: " + str(COMP_POINT))
+                              elif (app == 2):
+                                    print("Поражение!")
+                                    COMP_POINT += 1
+                                    print("Число ваших текущих побед: " + str(GAMER_POINT))
+                                    print("Число текущах побед компьютера: " + str(COMP_POINT))
+                              elif (app == 3):
+                                    print("Ничья!")
+                                    print("Число ваших текущих побед: " + str(GAMER_POINT))
+                                    print("Число текущах побед компьютера: " + str(COMP_POINT))
+                              else:
+                                    print("Введите число или число из нужного диапазона")
+                  except:
+                        print("ОШИБКА! ВВЕДИТЕ ТОЛЬКО ЦЕЛЫЕ ЧИСЛА")
+                  print("Вы желаете сыграть еще раз?(y/n)> ")
+            elif count == 'n':
+                  print("Число ваших побед за сессию: " + str(GAMER_POINT))
+                  print("Число побед компьютера за сессию: " + str(COMP_POINT))
+                  print("До свидания!")
+                  main()
+            else:
+                  print("Не верный символ! Повторите ввод!")
+                  continue
+
+
+def main():
+      print("Выбери игру из списка\n"
+            "1) 21 Очко\n"
+            "2) Камень/ножницы/бумага\n"
+            "n) Выход")
+
+      x = str(input("Введи сюда номер игры> "))
+      if x == '1':
+            a_point()
+      elif x == '2':
+            a_stone()
+      elif x == 'n':
+            exit()
+
+
+#________________________________________________________________________________
+while 1:
+      print("Введите 'start' что бы начать играть или 'exit' для выхода> ")
+      st = str(input())
+      if st == 'start':
+            main()
+      elif st == 'exit':
+            exit()
+      else:
+            print("Введено неверное комендное слово! Повторите ввод!")
+            continue
+#________________________________________________________________________________
