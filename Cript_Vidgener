@@ -1,0 +1,78 @@
+print("_______________________________________________________________________________________")
+
+
+while 1:
+    count = input("Хотите продолжить? [y/n] > ")
+    if count == 'Y' or count == 'y':
+        print("1) Шифровка: Создать зашифрованый файл и ключ в файле")
+        print("2) Расшифровка: Прочитать текст и ключ из файла")
+        print("3) Расшифровка: Ввести код и ключ самостоятельно")
+        try:
+            answer = int(input("Введите цифру для выполнения действия [цифра] > "))
+            if answer == 1:
+                with open("key_file.txt", "w") as file_key:
+                    m = input("[*] Введите текст [текст] > ")
+                    k = input("[*] Введите ключ [ключ] > ")
+                    # Вычисляем ключ
+                    k *= len(m) // len(k) + 1
+                    file_key.write(k)
+                    print("[*] Ключ успешно сохранен!")
+
+                with open("cript_message.txt", "w") as file_massage_cript:
+                    c = ""  # переменная для хранения зашифрованого текста
+                    for i, j in enumerate(m):
+                        if j == ' ':
+                            c += ' '
+                            continue
+                        elif j.isalpha() == False and j.isdigit() == False:
+                            c+= j
+                            continue
+                        gg = (ord(j) + ord(k[i]))
+                        c += chr(gg % 26 + ord('A'))
+                    file_massage_cript.write(c)
+                print("[*] Запись в файл успешно завершенна!")
+                print("[*] Зашифрованное сообщение [шифр] << " + str(c))
+                print("[*] Изначальное сообщение [текст] << " + str(m))
+                print("[*] Ключ [текст] << " + str(k))
+            elif answer == 2:
+                with open("cript_message.txt", "r") as file_massage_cript:
+                    c = file_massage_cript.read()  # Наше данное сообщение
+                with open("key_file.txt", "r") as file_key:
+                    k = file_key.read()
+                d = ""
+                for i, j in enumerate(c):
+                    if j == ' ':
+                        d += ' '
+                        continue
+                    elif j.isalpha() == False and j.isdigit() == False:
+                        d += j
+                        continue
+                    gg = (ord(j) - ord(k[i]))
+                    d += chr(gg % 26 + ord('A'))
+                print("[*] Зашифрованное сообщение [текст] << " + str(c))
+                print("[*] Ключ [ключ] << " + str(k))
+                print("[*] Расшифрованное сообщение [текст] << " + str(d))
+            elif answer == 3:
+                c = input("[*] Введите шифр [шифр] > ")
+                k = input("[*] Введите ключ [текст] > ")
+                d = ""  # переменная для хранения зашифрованого текста
+                for i, j in enumerate(c):
+                    if j == ' ':
+                        d += ' '
+                        continue
+                    elif j.isalpha() == False and j.isdigit() == False:
+                        d += j
+                        continue
+                    gg = (ord(j) - ord(k[i]))
+                    d += chr(gg % 26 + ord('A'))
+                print("[*] Шифр [шифр] > " + str(c))
+                print("[*] Ключ [ключ] > " + str(k))
+                print("[*] Расшифрованное сообщение [текст] > " + str(d))
+        except:
+            print("OOps!(((")
+    elif count == 'n' or count == 'N':
+        print("До свидания!")
+        exit()
+    else:
+        print("Ошибка, повторите ввод! ")
+        continue
