@@ -1,0 +1,89 @@
+while 1:
+    rum = input("Желаете продолжить? [y/n] > ")
+    if rum == 'y' or rum == 'Y':
+        print("1) Нажмите что бы зашифровать текст и поместить результат шифровки в файл.")
+        print("2) Нажмите для расшифровки из файла.")
+        print("3) Введите текст для расшифровки (зная ключи).")
+
+        try:
+            ansver = int(input("[*] Введите нужную цифру [цифра] > "))
+
+            if ansver == 1:
+                file_cript_save = open("File_cript.txt", "w")
+                text = input("[*] Введите фразу для шифрования [текст] > ")
+                # Непосредственное шифрование
+                key = {
+                    'a': '!', 'b': '@', 'c': '#',
+                    'd': '$', 'e': '%', 'f': '^',
+                    'g': '&', 'h': '*', 'i': '(',
+                    'j': ')', 'k': '-', 'l': '=',
+                    'm': '+', 'n': '?', 'o': ':',
+                    'p': ';', 'q': '<', 'r': '>',
+                    's': '/', 't': '[', 'u': ']',
+                    'v': '{', 'w': '}', 'x': '|',
+                    'y': '.', 'z': ',', ' ': '~'
+                }
+                # Алгоритм шифрования
+                cript = ""
+                for i in text:
+                    if i in key:
+                        cript += key[i]
+                print("[*] Зашифрованое слово: " + cript)
+                file_cript_save.write(cript)
+                file_cript_save.close()
+            if ansver == 2:
+                decript_file_read = open("File_cript.txt", "r")
+                read = decript_file_read.read()
+                decript = ""
+                key = {
+                    '!': 'a', '@': 'b', '#': 'c',
+                    '$': 'd', '%': 'e', '^': 'f',
+                    '&': 'g', '*': 'h', '(': 'i',
+                    ')': 'j', '-': 'k', '=': 'l',
+                    '+': 'm', '?': 'n', ':': 'o',
+                    ';': 'p', '<': 'q', '>': 'r',
+                    '/': 's', '[': 't', ']': 'u',
+                    '{': 'v', '}': 'w', '|': 'x',
+                    '.': 'y', ',': 'z', '~': ' '
+                }
+                for j in read:
+                    if j in read:
+                        decript += key[j]
+                print("[*] Дешифровка завершена [текст] > {0}".format(decript))
+                choise = input("[+] Желаете сохранить результат в файл? [y/n] >")
+                if choise == 'y' or choise == 'Y':
+                    result_decript_open = open("decript_result.txt", "w")
+                    result_decript_open.write(decript)
+                    result_decript_open.close()
+                    print("[*] Запись осуществленна успешно!")
+                elif choise == 'N' or choise == 'n':
+                    pass
+                else:
+                    print("Нажата недопустимая клавиша! Текст не записан!")
+                    pass
+            if ansver == 3:
+                cript = input("[*]Введите шифр [текст] > ")
+                key = {
+                    '!': 'a', '@': 'b', '#': 'c',
+                    '$': 'd', '%': 'e', '^': 'f',
+                    '&': 'g', '*': 'h', '(': 'i',
+                    ')': 'j', '-': 'k', '=': 'l',
+                    '+': 'm', '?': 'n', ':': 'o',
+                    ';': 'p', '<': 'q', '>': 'r',
+                    '/': 's', '[': 't', ']': 'u',
+                    '{': 'v', '}': 'w', '|': 'x',
+                    '.': 'y', ',': 'z', '~': ' '
+                }
+                decript = ""
+                for j in cript:
+                    if j in cript:
+                        decript += key[j]
+                print("[*] Дешифровка завершена [текст] > {0}".format(decript))
+        except:
+            print("Произошло что-то необычное! Повторите желаемые оперции!")
+    elif rum =='n' or rum=='N':
+        print("До свидания!")
+        exit()
+    else:
+        print("Упс... Где-то возникла ошибка, повторите ввод!")
+        continue
